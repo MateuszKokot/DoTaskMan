@@ -3,8 +3,6 @@ package pl.appcake.dotaskman;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -15,16 +13,16 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import pl.appcake.dotaskman.databinding.ActivityMainBinding;
-import pl.appcake.dotaskman.ui.Test;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    RecyclerView drawerRecyclerView;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +51,14 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        drawerRecyclerView = (RecyclerView) findViewById(R.id.drawer_recycler_view);
-        Adapter adapter = new ArrayAdapter<String>(this,
-                R.layout.drawer_item, R.id.textView, Test.array);
-        drawerRecyclerView.setAdapter(adapter);
+        // utworzenie instancji naszego adaptera
+        StringRecyclerViewAdapter adapter = new StringRecyclerViewAdapter(Test.array);
+        // utorzenie instancji menadżera ukłądów
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        // podpięcie do recycler view menadżera ukłądów i adaptera
+        recyclerView = findViewById(R.id.drawer_recycler_view);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
 
     }

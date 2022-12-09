@@ -1,4 +1,4 @@
-package pl.appcake.dotaskman.ui;
+package pl.appcake.dotaskman;
 
 import android.widget.ArrayAdapter;
 
