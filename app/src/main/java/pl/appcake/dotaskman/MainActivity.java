@@ -3,6 +3,8 @@ package pl.appcake.dotaskman;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -13,13 +15,16 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import pl.appcake.dotaskman.databinding.ActivityMainBinding;
+import pl.appcake.dotaskman.ui.Test;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    RecyclerView drawerRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        drawerRecyclerView = (RecyclerView) findViewById(R.id.drawer_recycler_view);
+        Adapter adapter = new ArrayAdapter<String>(this,
+                R.layout.drawer_item, R.id.textView, Test.array);
+        drawerRecyclerView.setAdapter(adapter);
+
+
     }
 
     @Override
